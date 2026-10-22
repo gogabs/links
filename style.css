@@ -185,6 +185,7 @@ button {
 .i-mastodon { --icon: url('icons/mastodon.svg'); }
 .i-rss { --icon: url('icons/rss.svg'); }
 .i-music { --icon: url('icons/music.svg'); }
+.i-ask { --icon: url('icons/ask.svg'); }
 .i-mail { --icon: url('icons/mail.svg'); }
 .i-pix { --icon: url('icons/pix.svg'); }
 .i-xmpp { --icon: url('icons/xmpp.svg'); }
