@@ -1,0 +1,218 @@
+:root {
+  color-scheme: dark;
+  --bg: #05050d;
+  --text: #fff;
+  --outline: #05050d;
+  --card: rgb(10 10 28 / 0.82);
+  --card-hover: rgb(24 18 52 / 0.92);
+  --accent: #ff7ad9;
+  --gradient: linear-gradient(
+    135deg,
+    #ff6ad5 0%,
+    #c774e8 22%,
+    #8e8cff 45%,
+    #5cc8ff 68%,
+    #5cf2c0 85%,
+    #ffe27a 100%
+  );
+  --font: 'Comic Neue', 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt',
+    cursive;
+}
+
+@font-face {
+  font-family: 'Comic Neue';
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/comic-neue-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Comic Neue';
+  font-weight: 700;
+  font-display: swap;
+  src: url('fonts/comic-neue-700.woff2') format('woff2');
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 1.25rem;
+  line-height: 1.4;
+}
+
+/* Céu: estrelas brancas usadas como máscara de um gradiente */
+.sky {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: radial-gradient(
+    ellipse at 50% 120%,
+    #160b2e 0%,
+    var(--bg) 60%
+  );
+}
+
+.stars {
+  position: absolute;
+  inset: 0;
+  background: var(--gradient);
+  background-size: 130% 130%;
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+  animation: drift 40s ease-in-out infinite alternate;
+}
+
+.stars-far {
+  -webkit-mask-image: url('stars-far.svg');
+  mask-image: url('stars-far.svg');
+  -webkit-mask-size: 1200px;
+  mask-size: 1200px;
+  opacity: 0.95;
+}
+
+.stars-near {
+  -webkit-mask-image: url('stars-near.svg');
+  mask-image: url('stars-near.svg');
+  -webkit-mask-size: 1200px;
+  mask-size: 1200px;
+  -webkit-mask-position: 300px 500px;
+  mask-position: 300px 500px;
+  animation: drift 40s ease-in-out infinite alternate,
+    twinkle 5s ease-in-out infinite;
+}
+
+@keyframes drift {
+  to {
+    background-position: 100% 100%;
+  }
+}
+
+@keyframes twinkle {
+  50% {
+    opacity: 0.55;
+  }
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: min(100% - 2rem, 28rem);
+  margin-inline: auto;
+  padding-block: 4rem;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.25rem, 10vw, 3.5rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 1px var(--outline)) drop-shadow(0 2px 0 var(--outline))
+    drop-shadow(0 0 18px rgb(199 116 232 / 0.45));
+}
+
+nav {
+  width: 100%;
+}
+
+ul {
+  display: grid;
+  gap: 0.9rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.6em;
+  padding: 0.85rem 1.25rem;
+  border: 2px solid transparent;
+  border-radius: 1rem;
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    var(--gradient) border-box;
+  color: var(--text);
+  font-weight: 700;
+  text-decoration: none;
+  -webkit-text-stroke: 0.6px var(--outline);
+  paint-order: stroke fill;
+  text-shadow:
+    -1px -1px 0 var(--outline),
+    1px -1px 0 var(--outline),
+    -1px 1px 0 var(--outline),
+    1px 1px 0 var(--outline);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.icon {
+  flex: none;
+  align-self: center;
+  width: 1.2em;
+  height: 1.2em;
+  background: currentColor;
+  -webkit-mask: var(--icon) center / contain no-repeat;
+  mask: var(--icon) center / contain no-repeat;
+}
+
+.i-codeberg { --icon: url('icons/codeberg.svg'); }
+.i-github { --icon: url('icons/github.svg'); }
+.i-linkedin { --icon: url('icons/linkedin.svg'); }
+.i-mastodon { --icon: url('icons/mastodon.svg'); }
+.i-rss { --icon: url('icons/rss.svg'); }
+.i-music { --icon: url('icons/music.svg'); }
+.i-xmpp { --icon: url('icons/xmpp.svg'); }
+
+a small {
+  font-size: 0.75em;
+  font-weight: 700;
+  color: #ffd1f1;
+}
+
+a:hover,
+a:focus-visible {
+  transform: translateY(-2px) scale(1.02);
+  background:
+    linear-gradient(var(--card-hover), var(--card-hover)) padding-box,
+    var(--gradient) border-box;
+}
+
+a:focus-visible {
+  outline: 3px solid var(--text);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stars,
+  .stars-near {
+    animation: none;
+  }
+
+  a {
+    transition: none;
+  }
+
+  a:hover,
+  a:focus-visible {
+    transform: none;
+  }
+}
